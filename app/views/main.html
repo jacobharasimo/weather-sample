@@ -1,0 +1,71 @@
+<form novalidate ng-submit="main.getResults(main.term)">
+  <div class="input-group">
+    <input type="search" class="header-search__input form-control" placeholder="search for..." ng-model="main.term">
+    <span class="input-group-btn">
+      <button class="header-search__button btn btn-default" type="submit">
+        <span class="sr-only">Search</span>
+        <i class="glyphicon glyphicon-search" aria-hidden="true"></i>
+      </button>
+    </span>
+  </div>
+</form>
+
+<div class="results" ng-if="main.currentForcast">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h2 class="panel-title" ng-bind="main.currentForcast.name"></h2>
+    </div>
+    <div class="panel-body" ng-repeat="weather in main.currentForcast.weather">
+      <div class="row">
+        <div class="col-md-6 text-center">
+          <img ng-src="http://openweathermap.org/img/w/{{weather.icon}}.png" alt="weather.main"/>
+          <h3 ng-bind="weather.description"></h3>
+        </div>
+        <div class="col-md-6">
+          <ul>
+            <li>
+              Daily High: {{main.currentForcast.main.temp_max}}&deg;C
+            </li>
+            <li>
+              Average: {{main.currentForcast.main.temp}}&deg;C
+            </li>
+            <li>
+              Low: {{main.currentForcast.main.temp_min}}&deg;C
+            </li>
+          </ul>
+        </div>
+      </div>
+      <button class="btn-link pull-right" ng-click="main.detailedForecast(main.term)">+More</button>
+    </div>
+    <div class="panel-body" ng-if="main.weatherDetails.list.length">
+      <ul>
+        <li ng-repeat="forcast in main.weatherDetails.list">
+          <div class="row" ng-repeat="weather in forcast.weather">
+            <div class="col-md-6 text-center">
+              <img ng-src="http://openweathermap.org/img/w/{{weather.icon}}.png" alt="weather.main"/>
+              <h3 ng-bind="weather.description"></h3>
+            </div>
+            <div class="col-md-6">
+              <ul>
+                <li>
+                  Daily High: {{forcast.temp.max}}&deg;C
+                </li>
+                <li>
+                  Average: {{forcast.temp.day}}&deg;C
+                </li>
+                <li>
+                  Low: {{forcast.temp.min}}&deg;C
+                </li>
+              </ul>
+            </div>
+            <hr/>
+          </div>
+
+
+        </li>
+      </ul>
+
+    </div>
+
+  </div>
+</div>
